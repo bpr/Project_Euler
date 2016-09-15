@@ -1,19 +1,16 @@
 using IntUtils
 
 # Why can't I write the following on one line?
-const RIGHT = 0
-const DOWN = 1
-const LEFT = 2
-const UP = 3
+@enum DIR Right Down Left Up
 
-function next_grid_elt(dir, r, c)
-    if dir == RIGHT
+function next_grid_elt(dir::DIR, r, c)
+    if dir == Right
         return (r, c + 1)
-    elseif dir == DOWN
+    elseif dir == Down
         return (r + 1, c)
-    elseif dir == LEFT
+    elseif dir == Left
         return (r, c - 1)
-    elseif dir == UP
+    elseif dir == Up
         return (r - 1, c)
     else
         return (0, 0)
@@ -21,11 +18,11 @@ function next_grid_elt(dir, r, c)
 end
 
 function next_dir(dir)
-    return (dir + 1) % 4
+    return DIR((Int(dir) + 1) % 4)
 end
 
 function lookup_index{T<:Integer}(dim::T, row::T, col::T)::T
-    dir = RIGHT
+    dir = Right
     runlen = 1
     r = div(dim, 2) + 1
     c = div(dim, 2) + 1
